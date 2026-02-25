@@ -1,0 +1,60 @@
+### Crear orden de trabajo
+POST /work-orders
+Content-Type: application/json
+
+{
+  "asset_item_code": "ACT-00045",
+  "title": "Mantenimiento bomba principal",
+  "description": "Fuga detectada en sello mecánico",
+  "type": "correctivo",
+  "priority": "alta",
+  "reported_by": "usr_jlopez",
+  "assigned_to": "tec_mramirez",
+  "planned_start_at": "2026-02-25T08:00:00Z",
+  "planned_end_at": "2026-02-25T16:00:00Z"
+}
+
+### Agregar material a OT
+POST /work-orders/1/materials
+Content-Type: application/json
+
+{
+  "material_item_code": "MAT-00210",
+  "description": "Sello mecánico 2 pulgadas",
+  "uom": "UND",
+  "warehouse_code": "ALM-01",
+  "qty_planned": 1,
+  "qty_issued": 1,
+  "qty_returned": 0,
+  "unit_cost": 185.75
+}
+
+### Agregar mano de obra
+POST /work-orders/1/labor
+Content-Type: application/json
+
+{
+  "technician_code": "tec_mramirez",
+  "description": "Cambio de sello y prueba hidráulica",
+  "hours": 3.5,
+  "hourly_rate": 20
+}
+
+### Cambiar estado
+POST /work-orders/1/status
+Content-Type: application/json
+
+{
+  "to_status": "en_progreso",
+  "comment": "Se inicia intervención en campo"
+}
+
+### Cerrar OT
+POST /work-orders/1/close
+Content-Type: application/json
+
+{
+  "actual_start_at": "2026-02-25T08:40:00Z",
+  "actual_end_at": "2026-02-25T12:30:00Z",
+  "comment": "Equipo operativo sin fugas"
+}
